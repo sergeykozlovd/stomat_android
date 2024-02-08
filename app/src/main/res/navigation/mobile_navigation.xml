@@ -3,12 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/navigation_home">
+    app:startDestination="@+id/HomeFragment">
 
     <fragment
-        android:id="@+id/navigation_home"
-        android:name="com.example.stomat.ui.home.HomeFragment"
+        android:id="@+id/HomeFragment"
         android:label="@string/title_home"
+        android:name="com.example.stomat.ui.home.HomeFragment"
         tools:layout="@layout/fragment_home" />
 
     <fragment
@@ -22,4 +22,21 @@
         android:name="com.example.stomat.ui.notifications.NotificationsFragment"
         android:label="@string/title_notifications"
         tools:layout="@layout/fragment_notifications" />
+    <fragment
+        android:id="@+id/ProfileFragment"
+        android:name="com.example.stomat.ui.profile.ProfileFragment"
+        android:label="@string/title_profile"
+        tools:layout="@layout/fragment_profile" />
+
+    <fragment
+        android:id="@+id/SignupFragment"
+        android:label="@string/sign_up"
+        android:name="com.example.stomat.ui.auth.signup.SignupFragment"
+        tools:layout="@layout/fragment_signup" />
+
+    <fragment
+        android:id="@+id/SigninFragment"
+        android:label="@string/sign_in"
+        android:name="com.example.stomat.ui.auth.signin.SigninFragment"
+        tools:layout="@layout/fragment_signin" />
 </navigation>
