@@ -3,10 +3,12 @@ package com.example.stomat
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toolbar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.NavDestination
 import androidx.navigation.findNavController
@@ -14,21 +16,16 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.stomat.network.ApiService
-import com.example.stomat.network.DataSource
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.coroutines.DelicateCoroutinesApi
 import org.json.JSONObject
 import javax.inject.Inject
 
 class MainActivity : AppCompatActivity() {
-
-//    private lateinit var binding: ActivityMainBinding
+    private lateinit var viewModel: MainViewModel
 
     @Inject
     lateinit var apiService: ApiService
-
-    @Inject
-    lateinit var dataSource: DataSource
 
     companion object {
         val messageLifeData = MutableLiveData<String>()
@@ -37,8 +34,8 @@ class MainActivity : AppCompatActivity() {
     lateinit var navView: BottomNavigationView
     lateinit var navController: NavController
     lateinit var title: TextView
+    lateinit var progress: LinearLayout
     lateinit var toolbar: Toolbar
-
 
     private val authFragments = listOf(
         R.id.ProfileFragment
@@ -46,7 +43,7 @@ class MainActivity : AppCompatActivity() {
 
     private val backFragments = listOf(
         R.id.SigninFragment,
-        R.id.SignupFragment,
+        R.id.CodeFragment,
     )
 
     private val navFragments = listOf(
@@ -60,23 +57,11 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        initViews()
-        initNavigation()
         appComponent.inject(this)
+        viewModel = ViewModelProvider(this,ViewModelFactory(apiService)).get(MainViewModel::class.java)
+        initViews()
         initObservers()
         initListeners()
-        //dataSource.register("80diebold08@mail.ru","1234556")
-//        AlertUtils.alert(
-//            this,
-//            message = "okgsldk jgsdlf slkdfjhg lsdkjfhgl skjdfhlgk  jshd flgkdsfg sldk jfghsd lkjf g",
-//            callbackOk = {
-//
-//            },
-//            callbackCancel = {
-//
-//            }
-//        )
-
     }
 
     private fun initListeners(){
@@ -113,15 +98,10 @@ class MainActivity : AppCompatActivity() {
                         navController.navigate(R.id.SigninFragment)
                     } else {
                         //get profile
-                        dataSource.getUserProfile(){
-
-                        }
+                        viewModel.getUserProfile()
                     }
-
                 }
-
             }
-
         })
 
         toolbar.setNavigationOnClickListener {
@@ -129,42 +109,25 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun initNavigation() {
-        val appBarConfiguration = AppBarConfiguration(
-            setOf(
-                R.id.HomeFragment,
-                R.id.navigation_dashboard,
-                R.id.navigation_notifications,
-                R.id.ProfileFragment
-            )
-        )
-        //setupActionBarWithNavController(navController, appBarConfiguration)
-        navView.setupWithNavController(navController)
-    }
-
     private fun initViews() {
         navController = findNavController(R.id.nav_host_fragment_activity_main)
         navView = findViewById( R.id.nav_view)
-
         title = findViewById(R.id.title)
         toolbar = findViewById(R.id.toolbar)
+        progress = findViewById(R.id.progress)
+
+        navView.setupWithNavController(navController)
     }
 
     private fun initObservers() {
         messageLifeData.observeForever {
             if (it == null) {
-                Log.d("qqq", "error network")
+                progress.visibility = View.VISIBLE
             } else {
-                //    var boolean: MutableLiveData<ResultBoolean?> = MutableLiveData()
+                progress.visibility = View.GONE
                 val obj = JSONObject(it)
-
-
-                var success = false
                 var msg = ""
                 try {
-                    if (obj.has(Const.SUCCESS)) {
-                        success = obj.getBoolean(Const.SUCCESS)
-                    }
                     if (obj.has(Const.MESSAGE)) {
                         msg = obj.getString(Const.MESSAGE)
                     }
@@ -172,12 +135,14 @@ class MainActivity : AppCompatActivity() {
                     e.printStackTrace()
                 }
 
-
+                if (msg.isNotEmpty()){
+                    AlertUtils.alert(this,msg)
+                }
             }
-
-
         }
     }
 
-
+    fun setTitle(text:String){
+        title.text = text
+    }
 }

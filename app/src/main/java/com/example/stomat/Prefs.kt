@@ -7,13 +7,13 @@ object Prefs {
 
     fun savePrefs(){
         with(App.prefs.edit()) {
-            putString(Const.KEY_PICODE, pinCode)
+            putString(Const.KEY_PINCODE, pinCode)
             apply()
         }
     }
 
     fun loadPrefs(){
-        App.prefs.getString(Const.KEY_PICODE,Const.PINCODE_VALUE)?.let {
+        App.prefs.getString(Const.KEY_PINCODE,Const.PINCODE_VALUE)?.let {
             pinCode = it
         }
     }

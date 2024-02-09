@@ -38,6 +38,17 @@
             android:layout_height="wrap_content" />
     </com.google.android.material.textfield.TextInputLayout>
 
+
+    <com.google.android.material.textview.MaterialTextView
+        android:layout_width="match_parent"
+        android:id="@+id/tvForgot"
+        android:layout_marginTop="@dimen/elements_margin"
+        android:layout_height="wrap_content"
+        android:gravity="right"
+        android:text="@string/forgot_password_u"
+        app:layout_constraintTop_toBottomOf="@id/ilPassword" />
+
+
     <com.google.android.material.button.MaterialButton
         android:id="@+id/button"
         android:text="@string/enter"
@@ -45,7 +56,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/elements_margin"
         app:cornerRadius="@dimen/edit_corner_radius"
-        app:layout_constraintTop_toBottomOf="@id/ilPassword" />
+        app:layout_constraintTop_toBottomOf="@id/tvForgot" />
 
     <com.google.android.material.textview.MaterialTextView
         android:layout_width="match_parent"
@@ -53,6 +64,14 @@
         android:gravity="center"
         android:id="@+id/tvSignup"
         android:text="@string/sign_up_u"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:id="@+id/tvSignin"
+        android:text="@string/sign_in_u"
         app:layout_constraintBottom_toBottomOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

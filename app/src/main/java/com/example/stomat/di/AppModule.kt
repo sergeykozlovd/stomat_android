@@ -3,7 +3,6 @@ package com.example.stomat.di
 import com.example.stomat.network.ApiService
 import com.example.stomat.network.AuthorizationInterceptor
 import com.example.stomat.Const
-import com.example.stomat.network.DataSource
 import dagger.Module
 import dagger.Provides
 import okhttp3.OkHttpClient
@@ -39,10 +38,10 @@ class AppModule {
         return retrofit.create(ApiService::class.java)
     }
 
-    @Provides
-    @Singleton
-    fun provideDataSource(apiService: ApiService) :DataSource{
-        return DataSource(apiService)
-    }
+//    @Provides
+//    @Singleton
+//    fun provideDataSource(apiService: ApiService) :DataSource{
+//        return DataSource(apiService)
+//    }
 
 }

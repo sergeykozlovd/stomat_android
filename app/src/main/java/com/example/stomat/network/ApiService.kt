@@ -5,18 +5,34 @@ import retrofit2.http.Body
 import retrofit2.http.POST
 
 interface ApiService {
-    @POST("signup")
+    @POST("register")
     suspend fun signup(
-        @Body hashMap: HashMap<String,String>
-    ) : ResponseData
+        @Body hashMap: HashMap<String, String>
+    ): ResponseData
 
-    @POST("signin")
+    @POST("login")
     suspend fun signin(
-        @Body hashMap: HashMap<String,String>
-    ) : ResponseData
+        @Body hashMap: HashMap<String, String>
+    ): ResponseData
+
+    @POST("recovery")
+    suspend fun recovery(
+        @Body hashMap: HashMap<String, String>
+    ): ResponseData
+
+    @POST("send_code")
+    suspend fun sendCode(
+        @Body hashMap: HashMap<String, String>
+    ): ResponseData
 
 
-    @POST("get_user_profile")
-    suspend fun getUserProfile() : Any
+    @POST("send_recovery_code")
+    suspend fun sendRecoveryCode(
+        @Body hashMap: HashMap<String, String>
+    ): ResponseData
+
+
+    @POST("user")
+    suspend fun getUserProfile(): Any
 
 }

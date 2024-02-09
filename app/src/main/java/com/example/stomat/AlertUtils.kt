@@ -19,7 +19,7 @@ object AlertUtils {
         callbackCancel: (() -> Unit)? = null
     ) {
 
-        val dialog = Dialog(context).apply {
+        val dialog = Dialog(context,R.style.Dialog).apply {
             setContentView(R.layout.dialog)
             window?.apply {
                 setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))

@@ -29,14 +29,15 @@
         tools:layout="@layout/fragment_profile" />
 
     <fragment
-        android:id="@+id/SignupFragment"
-        android:label="@string/sign_up"
-        android:name="com.example.stomat.ui.auth.signup.SignupFragment"
-        tools:layout="@layout/fragment_signup" />
-
-    <fragment
         android:id="@+id/SigninFragment"
         android:label="@string/sign_in"
-        android:name="com.example.stomat.ui.auth.signin.SigninFragment"
+        android:name="com.example.stomat.ui.auth.SigninFragment"
         tools:layout="@layout/fragment_signin" />
+
+    <fragment
+        android:id="@+id/CodeFragment"
+        android:label="@string/confirm_code"
+        android:name="com.example.stomat.ui.auth.CodeFragment"
+        tools:layout="@layout/fragment_code"/>
+
 </navigation>

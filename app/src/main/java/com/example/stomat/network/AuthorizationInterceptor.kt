@@ -15,8 +15,8 @@ class AuthorizationInterceptor : Interceptor {
 
         var response: Response? = null
         var bodyString: String? = null
-//        var bodyString: ResponseData? = null
 
+        MainActivity.messageLifeData.postValue(null)
         try {
             response = chain.proceed(
                 chain.request().newBuilder().build().newBuilder().build()
@@ -30,7 +30,7 @@ class AuthorizationInterceptor : Interceptor {
         }
 
 //        if (response?.code != 200) {
-            MainActivity.messageLifeData.postValue(bodyString)
+        MainActivity.messageLifeData.postValue(bodyString)
 //
 //        }
 
