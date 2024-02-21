@@ -10,8 +10,6 @@ class App:Application() {
 
     companion object {
         lateinit var prefs: SharedPreferences
-
-
     }
 
     lateinit var appComponent: AppComponent
