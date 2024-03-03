@@ -1,6 +1,7 @@
 package com.example.stomat.network
 
 import com.example.stomat.MainActivity
+import com.example.stomat.Prefs
 import com.example.stomat.model.ResponseData
 import okhttp3.Interceptor
 import okhttp3.MediaType.Companion.toMediaType
@@ -17,9 +18,15 @@ class AuthorizationInterceptor : Interceptor {
         var bodyString: String? = null
 
         MainActivity.messageLifeData.postValue(null)
+        val requestBuilder = chain.request().newBuilder()
+
+        Prefs.token?.let {
+            requestBuilder.addHeader("Authorization", it)
+        }
+
         try {
             response = chain.proceed(
-                chain.request().newBuilder().build().newBuilder().build()
+                requestBuilder.build().newBuilder().build()
             )
 
             bodyString = response.body?.string()

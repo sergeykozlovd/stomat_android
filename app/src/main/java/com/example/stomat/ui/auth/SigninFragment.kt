@@ -22,7 +22,7 @@ class SigninFragment : Fragment() {
         }
     }
 
-    private var authMode = 0
+    private var authMode = Const.AUTH_SIGNIN
     lateinit var viewModel: SigninViewModel
 
     @Inject
