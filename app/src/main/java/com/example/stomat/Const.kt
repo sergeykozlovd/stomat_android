@@ -1,18 +1,21 @@
 package com.example.stomat
 
 object Const {
-    val baseUrl = "http://192.168.43.250:8080/api/"
-    val EMAIL = "email"
+//    val baseUrl = "http://192.168.43.250:8000/api/"
+    val baseUrl = "http://192.168.60.250:8000/api/"
+//    val baseUrl = "http://192.168.1.108:8080/api/"
+    val KEY_EMAIL = "email"
+    val KEY_IS_REGISTER = "KEY_IS_REGISTER"
     val PASSWORD = "password"
     val SUCCESS = "success"
     val MESSAGE = "message"
     val KEY_PINCODE = "pincode"
     val KEY_CODE = "code"
     val PINCODE_VALUE = "000000"
+}
 
-    val KEY_AUTH_MODE = "auth_mode"
-    val AUTH_SIGNIN = 0
-    val AUTH_RECOVERY = 1
-    val AUTH_SIGNUP = 2
-
+enum  class Auth {
+    SIGNIN ,
+    RECOVERY,
+    SIGNUP
 }

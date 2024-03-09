@@ -1,110 +1,139 @@
 package com.example.stomat.ui.auth
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
+import android.widget.Button
+import android.widget.TextView
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
-import com.example.stomat.App
-import com.example.stomat.Const
+import com.example.stomat.Auth
 import com.example.stomat.MainActivity
 import com.example.stomat.R
-import com.example.stomat.databinding.FragmentSigninBinding
-import javax.inject.Inject
+import com.google.android.material.textfield.TextInputEditText
 
-class SigninFragment : Fragment() {
-    companion object {
-        fun getBundle(authMode: Int) = Bundle().apply {
-            putInt(Const.KEY_AUTH_MODE, authMode)
-        }
-    }
+class SigninFragment : Fragment(R.layout.fragment_signin) {
 
-    private var authMode = Const.AUTH_SIGNIN
-    lateinit var viewModel: SigninViewModel
+    private var authMode = Auth.SIGNIN
 
-    @Inject
-    lateinit var viewModelFactory: ViewModelProvider.Factory
+    private lateinit var tvSignup: TextView
+    private lateinit var tvSignin: TextView
+    private lateinit var tvForgot: TextView
+    private lateinit var button: Button
+    private lateinit var itEmail: TextInputEditText
+    private lateinit var itPassword: TextInputEditText
 
 //    @Inject
-//    lateinit var apiService: ApiService
+//    lateinit var viewModelFactory: ViewModelProvider.Factory
+    private val viewModel: SigninViewModel by viewModels()
 
-    lateinit var binding: FragmentSigninBinding
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        authMode = arguments?.getInt(Const.KEY_AUTH_MODE) ?: 0
-        (activity?.applicationContext as App).appComponent.inject(this)
-        viewModel = ViewModelProvider(this, viewModelFactory).get(SigninViewModel::class.java)
-        binding = FragmentSigninBinding.inflate(inflater, container, false)
-
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+//        (activity?.applicationContext as App).appComponent.inject(this)
+        initViews()
         initListeners()
         initObservers()
+        updateViews(Auth.SIGNIN)
 
-        initViews()
 
-        return binding.root
     }
 
-    private fun initViews() {
-        binding.itEmail.setText("sergeykozlov.d@ya.ru")
-        binding.itPassword.setText("000000")
+//    lateinit var binding: FragmentSigninBinding
+//    override fun onCreateView(
+//        inflater: LayoutInflater,
+//        container: ViewGroup?,
+//        savedInstanceState: Bundle?
+//    ): View {
+//
+//        binding = FragmentSignininflate(inflater, container, false)
+//
+//        initListeners()
+//        initObservers()
+//
+//        initViews(Auth.SIGNIN)
+//
+//        return root
+//    }
 
+    private fun initViews() {
+        tvSignup = requireView().findViewById(R.id.tvSignup)
+        tvSignin = requireView().findViewById(R.id.tvSignin)
+        tvForgot = requireView().findViewById(R.id.tvForgot)
+        button = requireView().findViewById(R.id.button)
+        itEmail = requireView().findViewById(R.id.itEmail)
+        itPassword = requireView().findViewById(R.id.itPassword)
+    }
+
+    private fun updateViews(s: Auth) {
+        authMode = s
+        itEmail.setText("sergeykozlov.d@ya.ru")
+        itPassword.setText("000000")
 
         var title = ""
-        var button = ""
-        when (authMode) {
-            Const.AUTH_SIGNIN -> {
+        var buttonText = ""
+        when (s) {
+            Auth.SIGNIN -> {
                 title = getString(R.string.sign_in)
-                button = getString(R.string.enter)
-                binding.tvForgot.visibility = View.VISIBLE
-                binding.tvSignup.visibility = View.VISIBLE
-                binding.tvSignin.visibility = View.GONE
+                buttonText = getString(R.string.enter)
+                // tvForgot.visibility = View.VISIBLE
+                tvSignup.visibility = View.VISIBLE
+                tvSignin.visibility = View.GONE
 
             }
 
-            Const.AUTH_RECOVERY -> {
+            Auth.RECOVERY -> {
                 title = getString(R.string.password_recovery)
-                button = getString(R.string.recovery)
-                binding.tvForgot.visibility = View.GONE
-                binding.tvSignup.visibility = View.VISIBLE
-                binding.tvSignin.visibility = View.GONE
+                buttonText = getString(R.string.recovery)
+                //tvForgot.visibility = View.GONE
+                tvSignup.visibility = View.VISIBLE
+                tvSignin.visibility = View.GONE
             }
 
-            Const.AUTH_SIGNUP -> {
+            Auth.SIGNUP -> {
                 title = getString(R.string.register)
-                button = getString(R.string.register)
-                binding.tvForgot.visibility = View.GONE
-                binding.tvSignup.visibility = View.GONE
-                binding.tvSignin.visibility = View.VISIBLE
+                buttonText = getString(R.string.register)
+                //  tvForgot.visibility = View.GONE
+                tvSignup.visibility = View.GONE
+                tvSignin.visibility = View.VISIBLE
             }
         }
 
-        binding.button.text = button
+        button.text = buttonText
         (activity as MainActivity).setTitle(title)
     }
 
     private fun initObservers() {
         viewModel.isDataValid.observe(viewLifecycleOwner) {
-            binding.button.isEnabled = it
+            button.isEnabled = it
         }
 
-        viewModel.codeSent.observe(viewLifecycleOwner) {
+        viewModel.codeRegisterSent.observe(viewLifecycleOwner) {
             if (it) {
-                //goto code confirm
-                findNavController().navigateUp()
-                findNavController().navigate(
-                    R.id.CodeFragment,
-                    CodeFragment.getBundle(viewModel.email.value ?: "")
-                )
+                viewModel.email.value?.let { email ->
+                    findNavController().navigateUp()
+                    findNavController().navigate(
+                        R.id.CodeFragment,
+                        CodeFragment.getBundle(email, true)
+                    )
+                }
             }
         }
 
-        viewModel.isSignin.observe(viewLifecycleOwner){
+        viewModel.codeRecoverySent.observe(viewLifecycleOwner) {
+            if (it) {
+                viewModel.email.value?.let { email ->
+                    findNavController().navigateUp()
+                    findNavController().navigate(
+                        R.id.CodeFragment,
+                        CodeFragment.getBundle(email, false)
+                    )
+                }
+            }
+        }
+
+        viewModel.isSignin.observe(viewLifecycleOwner) {
             if (it) {
                 findNavController().navigateUp()
                 findNavController().navigate(R.id.ProfileFragment)
@@ -113,44 +142,32 @@ class SigninFragment : Fragment() {
     }
 
     private fun initListeners() {
-        binding.tvSignup.setOnClickListener {
-            findNavController().navigateUp()
-            findNavController().navigate(
-                R.id.SigninFragment,
-                getBundle(Const.AUTH_SIGNUP)
-            )
+        tvSignup.setOnClickListener {
+            updateViews(Auth.SIGNUP)
         }
 
-        binding.tvSignin.setOnClickListener {
-            findNavController().navigateUp()
-            findNavController().navigate(
-                R.id.SigninFragment,
-                getBundle(Const.AUTH_SIGNIN)
-            )
+        tvSignin.setOnClickListener {
+            updateViews(Auth.SIGNIN)
         }
 
-        binding.button.setOnClickListener {
+        button.setOnClickListener {
             when (authMode) {
-                Const.AUTH_SIGNIN -> viewModel.signin()
-                Const.AUTH_SIGNUP -> viewModel.signup()
-                Const.AUTH_RECOVERY -> viewModel.recovery()
+                Auth.SIGNIN -> viewModel.signin()
+                Auth.SIGNUP -> viewModel.signup()
+                Auth.RECOVERY -> viewModel.recovery()
             }
         }
 
-        binding.itEmail.addTextChangedListener {
+        itEmail.addTextChangedListener {
             viewModel.email.value = it.toString()
         }
 
-        binding.itPassword.addTextChangedListener {
+        itPassword.addTextChangedListener {
             viewModel.password.value = it.toString()
         }
 
-        binding.tvForgot.setOnClickListener {
-            findNavController().navigateUp()
-            findNavController().navigate(
-                R.id.SigninFragment,
-                getBundle(Const.AUTH_RECOVERY)
-            )
+        tvForgot.setOnClickListener {
+            updateViews(Auth.RECOVERY)
         }
     }
 }

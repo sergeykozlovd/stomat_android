@@ -34,9 +34,9 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
-    buildFeatures {
-        viewBinding = true
-    }
+//    buildFeatures {
+//        viewBinding = true
+//    }
 }
 
 dependencies {
@@ -50,14 +50,15 @@ dependencies {
     implementation(libs.androidx.navigation.fragment.ktx)
     implementation(libs.androidx.navigation.ui.ktx)
 
-    implementation(libs.dagger)
-    kapt(libs.dagger.compiler)
+//    implementation(libs.dagger)
+//    kapt(libs.dagger.compiler)
 
     implementation(libs.retrofit)
     implementation(libs.converter.json)
     implementation(libs.okhttp)
     implementation(libs.login.interceptor)
-    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.5.0")
+    implementation(libs.kotlinx.serialization.json)
+    implementation(libs.glide)
 
 
 //    testImplementation(libs.junit)

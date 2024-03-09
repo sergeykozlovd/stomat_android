@@ -6,9 +6,5 @@ import com.example.stomat.network.ApiService
 import kotlinx.coroutines.launch
 
 class MainViewModel(private val apiService: ApiService):ViewModel() {
-    fun getUserProfile(){
-        viewModelScope.launch {
 
-        }
-    }
 }

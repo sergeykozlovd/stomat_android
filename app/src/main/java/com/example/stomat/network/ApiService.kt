@@ -2,6 +2,7 @@ package com.example.stomat.network
 
 import com.example.stomat.model.ResponseData
 import retrofit2.http.Body
+import retrofit2.http.GET
 import retrofit2.http.POST
 
 interface ApiService {
@@ -21,7 +22,7 @@ interface ApiService {
     ): ResponseData
 
     @POST("send_code")
-    suspend fun sendCode(
+    suspend fun sendRegisterCode(
         @Body hashMap: HashMap<String, String>
     ): ResponseData
 
@@ -34,5 +35,8 @@ interface ApiService {
 
     @POST("user")
     suspend fun getUserProfile(): Any
+
+    @GET("adverts")
+    suspend fun getAdverts(): ResponseData
 
 }

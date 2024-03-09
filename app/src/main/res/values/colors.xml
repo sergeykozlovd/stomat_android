@@ -11,6 +11,6 @@
     <color name="pin_color">#000fff</color>
     <color name="grey">#cccccc</color>
     <color name="blue">#3478f7</color>
-    <color name="dark_tr">#df000000</color>
+    <color name="dark_tr">#7f000000</color>
 
 </resources>

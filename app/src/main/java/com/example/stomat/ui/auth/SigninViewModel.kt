@@ -1,9 +1,12 @@
 package com.example.stomat.ui.auth
 
+import android.app.Application
 import android.util.Patterns
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.stomat.App
 import com.example.stomat.Prefs
 import com.example.stomat.network.ApiService
 import kotlinx.coroutines.flow.flow
@@ -11,12 +14,15 @@ import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.onEmpty
 
-class SigninViewModel(private val apiService: ApiService) : ViewModel() {
+class SigninViewModel(application: Application) : AndroidViewModel(application) {
+
+    val apiService = (application as App).apiService
     val isDataValid = MutableLiveData(false)
     val isSignin = MutableLiveData(false)
     val isSignup = MutableLiveData(false)
     val isRecovery = MutableLiveData(false)
-    val codeSent = MutableLiveData(false)
+    val codeRecoverySent = MutableLiveData(false)
+    val codeRegisterSent = MutableLiveData(false)
     val email = MutableLiveData("")
     val password = MutableLiveData("")
 
@@ -66,7 +72,7 @@ class SigninViewModel(private val apiService: ApiService) : ViewModel() {
                 e.printStackTrace()
             }
         }.onEach {
-            it
+            codeRegisterSent.value = true
         }.onEmpty {
             this
         }.launchIn(viewModelScope)
@@ -85,7 +91,7 @@ class SigninViewModel(private val apiService: ApiService) : ViewModel() {
                 e.printStackTrace()
             }
         }.onEach {
-            codeSent.value = true
+            codeRecoverySent.value = true
         }.onEmpty {
             this
         }.launchIn(viewModelScope)

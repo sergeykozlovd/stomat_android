@@ -55,6 +55,9 @@
         app:navGraph="@navigation/mobile_navigation" />
 
     <LinearLayout
+        android:clickable="true"
+        android:elevation="8dp"
+        android:visibility="gone"
         android:id="@+id/progress"
         android:layout_width="match_parent"
         android:gravity="center"

@@ -1,31 +1,23 @@
 package com.example.stomat
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toolbar
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.NavDestination
 import androidx.navigation.findNavController
-import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
-import com.example.stomat.network.ApiService
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import kotlinx.coroutines.DelicateCoroutinesApi
 import org.json.JSONObject
-import javax.inject.Inject
 
 class MainActivity : AppCompatActivity() {
-    private lateinit var viewModel: MainViewModel
-
-    @Inject
-    lateinit var apiService: ApiService
+//    private  val  viewModel: MainViewModel by viewModels()
 
     companion object {
         val messageLifeData = MutableLiveData<String>()
@@ -57,21 +49,20 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        appComponent.inject(this)
-        viewModel = ViewModelProvider(this,ViewModelFactory(apiService)).get(MainViewModel::class.java)
         initViews()
         initObservers()
         initListeners()
     }
 
-    private fun initListeners(){
-        navController.addOnDestinationChangedListener( object: NavController.OnDestinationChangedListener {
+    private fun initListeners() {
+        navController.addOnDestinationChangedListener(object :
+            NavController.OnDestinationChangedListener {
             override fun onDestinationChanged(
                 controller: NavController,
                 destination: NavDestination,
                 arguments: Bundle?
             ) {
-                if (destination.label.isNullOrEmpty()){
+                if (destination.label.isNullOrEmpty()) {
                     title.text = ""
                     toolbar.visibility = View.GONE
                 } else {
@@ -85,20 +76,20 @@ class MainActivity : AppCompatActivity() {
                     toolbar.navigationIcon = null
                 }
 
-                if (navFragments.contains(destination.id)){
+                if (navFragments.contains(destination.id)) {
                     navView.visibility = View.VISIBLE
                 } else {
                     navView.visibility = View.GONE
                 }
 
                 if (authFragments.contains(destination.id)) {
-                    if (Prefs.token.isNullOrEmpty()){
+                    if (Prefs.token.isNullOrEmpty()) {
                         //got to signin
                         navController.navigateUp()
                         navController.navigate(R.id.SigninFragment)
                     } else {
                         //get profile
-                        viewModel.getUserProfile()
+//                        viewModel.getUserProfile()
                     }
                 }
             }
@@ -111,7 +102,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun initViews() {
         navController = findNavController(R.id.nav_host_fragment_activity_main)
-        navView = findViewById( R.id.nav_view)
+        navView = findViewById(R.id.nav_view)
         title = findViewById(R.id.title)
         toolbar = findViewById(R.id.toolbar)
         progress = findViewById(R.id.progress)
@@ -125,24 +116,26 @@ class MainActivity : AppCompatActivity() {
                 progress.visibility = View.VISIBLE
             } else {
                 progress.visibility = View.GONE
-                val obj = JSONObject(it)
-                var msg = ""
                 try {
+                    val obj = JSONObject(it)
+                    var msg = ""
+
                     if (obj.has(Const.MESSAGE)) {
                         msg = obj.getString(Const.MESSAGE)
                     }
+
+
+                    if (msg.isNotEmpty()) {
+                        AlertUtils.alert(this, msg)
+                    }
                 } catch (e: Exception) {
                     e.printStackTrace()
-                }
-
-                if (msg.isNotEmpty()){
-                    AlertUtils.alert(this,msg)
                 }
             }
         }
     }
 
-    fun setTitle(text:String){
+    fun setTitle(text: String) {
         title.text = text
     }
 }
