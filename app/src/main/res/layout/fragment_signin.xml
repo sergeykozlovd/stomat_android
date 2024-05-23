@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="20dp"
-    tools:context=".ui.dashboard.DashboardFragment">
+    tools:context=".ui.catalog.CatalogFragment">
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/ilEmail"
@@ -17,6 +17,7 @@
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/itEmail"
+            android:inputType="textShortMessage"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
     </com.google.android.material.textfield.TextInputLayout>
@@ -25,6 +26,7 @@
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/ilPassword"
         style="@style/MyTextInputLayout"
+        app:endIconMode="password_toggle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/elements_margin"
@@ -34,6 +36,7 @@
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/itPassword"
+            android:inputType="textPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
     </com.google.android.material.textfield.TextInputLayout>
@@ -50,7 +53,7 @@
 
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/button"
+        android:id="@+id/addButton"
         android:text="@string/enter"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

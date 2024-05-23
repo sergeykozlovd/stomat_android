@@ -55,6 +55,7 @@ class SigninViewModel(application: Application) : AndroidViewModel(application) 
         }.onEach {
             if (!it.token.isNullOrEmpty()) {
                 Prefs.token = it.token
+                Prefs.savePrefs()
                 isSignin.value = true
             }
         }.launchIn(viewModelScope)

@@ -2,13 +2,12 @@ package com.example.stomat
 
 import android.os.Bundle
 import android.view.View
+import android.view.WindowManager
 import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toolbar
-import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.NavDestination
 import androidx.navigation.findNavController
@@ -17,33 +16,19 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import org.json.JSONObject
 
 class MainActivity : AppCompatActivity() {
-//    private  val  viewModel: MainViewModel by viewModels()
 
     companion object {
         val messageLifeData = MutableLiveData<String>()
     }
 
+    var categoryId:Int? = null
     lateinit var navView: BottomNavigationView
     lateinit var navController: NavController
     lateinit var title: TextView
     lateinit var progress: LinearLayout
     lateinit var toolbar: Toolbar
 
-    private val authFragments = listOf(
-        R.id.ProfileFragment
-    )
 
-    private val backFragments = listOf(
-        R.id.SigninFragment,
-        R.id.CodeFragment,
-    )
-
-    private val navFragments = listOf(
-        R.id.HomeFragment,
-        R.id.navigation_dashboard,
-        R.id.ProfileFragment,
-        R.id.navigation_notifications,
-    )
 
     private val TAG = "MainActivity"
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -92,6 +77,14 @@ class MainActivity : AppCompatActivity() {
 //                        viewModel.getUserProfile()
                     }
                 }
+
+                if (fragmentsWithSoftResize.contains(destination.id)) {
+                    window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
+                } else {
+                    window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_NOTHING)
+                }
+
+
             }
         })
 
@@ -106,7 +99,6 @@ class MainActivity : AppCompatActivity() {
         title = findViewById(R.id.title)
         toolbar = findViewById(R.id.toolbar)
         progress = findViewById(R.id.progress)
-
         navView.setupWithNavController(navController)
     }
 
@@ -124,7 +116,7 @@ class MainActivity : AppCompatActivity() {
                         msg = obj.getString(Const.MESSAGE)
                     }
 
-
+//"select * from "adverts" inner join "purchases" on "adverts"."id" = "purchases"."advert_id" where "purchases"."user_id" = ? and "purchases"."state" = ?"
                     if (msg.isNotEmpty()) {
                         AlertUtils.alert(this, msg)
                     }
@@ -136,6 +128,17 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun setTitle(text: String) {
-        title.text = text
+        if (text.isEmpty()){
+            toolbar.visibility = View.GONE
+        } else {
+            title.text = text
+            toolbar.visibility = View.VISIBLE
+        }
+    }
+
+    fun navToCatalog(categoryId:Int){
+        this.categoryId = categoryId
+        navController.navigateUp()
+        navView.selectedItemId = R.id.CatalogFragment
     }
 }

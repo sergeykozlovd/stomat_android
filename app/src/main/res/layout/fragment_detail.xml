@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.home.HomeFragment">
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="title"/>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/addButton"
+        android:text="@string/add_to_cart"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/elements_margin"
+        app:cornerRadius="@dimen/edit_corner_radius"
+        app:layout_constraintBottom_toTopOf="@id/deleteButton"/>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/deleteButton"
+        android:text="@string/delete_from_cart"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/elements_margin"
+        app:cornerRadius="@dimen/edit_corner_radius"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

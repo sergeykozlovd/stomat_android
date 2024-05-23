@@ -21,7 +21,7 @@ class AuthorizationInterceptor : Interceptor {
         val requestBuilder = chain.request().newBuilder()
 
         Prefs.token?.let {
-            requestBuilder.addHeader("Authorization", it)
+            requestBuilder.addHeader("Authorization", "Bearer $it")
         }
 
         try {

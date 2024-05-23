@@ -10,7 +10,6 @@ import com.example.stomat.App
 import com.example.stomat.Const
 import com.example.stomat.Prefs
 import com.example.stomat.R
-import com.example.stomat.network.ApiService
 import com.example.stomat.network.NetUtils
 import com.google.android.material.textfield.TextInputEditText
 import kotlinx.coroutines.flow.flow
@@ -41,7 +40,7 @@ class CodeFragment : Fragment(R.layout.fragment_code) {
     
     private fun initViews(){
         itCode = requireView().findViewById(R.id.itCode)
-        button = requireView().findViewById(R.id.button)
+        button = requireView().findViewById(R.id.addButton)
     }
     
     private var isRegister = true

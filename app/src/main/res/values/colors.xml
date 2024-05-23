@@ -7,10 +7,14 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="digit_fon">#000</color>
+    <color name="digit_fon">#fff</color>
     <color name="pin_color">#000fff</color>
     <color name="grey">#cccccc</color>
+    <color name="divider">#eeeeee</color>
     <color name="blue">#3478f7</color>
     <color name="dark_tr">#7f000000</color>
+    <color name="qqq">#A049D5</color>
+    <color name="text_inactive">#9c9c9c</color>
+    <color name="text_title">#85499A</color>
 
 </resources>

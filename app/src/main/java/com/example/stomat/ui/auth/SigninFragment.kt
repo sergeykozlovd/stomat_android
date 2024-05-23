@@ -7,7 +7,6 @@ import android.widget.TextView
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.stomat.Auth
 import com.example.stomat.MainActivity
@@ -40,28 +39,12 @@ class SigninFragment : Fragment(R.layout.fragment_signin) {
 
     }
 
-//    lateinit var binding: FragmentSigninBinding
-//    override fun onCreateView(
-//        inflater: LayoutInflater,
-//        container: ViewGroup?,
-//        savedInstanceState: Bundle?
-//    ): View {
-//
-//        binding = FragmentSignininflate(inflater, container, false)
-//
-//        initListeners()
-//        initObservers()
-//
-//        initViews(Auth.SIGNIN)
-//
-//        return root
-//    }
 
     private fun initViews() {
         tvSignup = requireView().findViewById(R.id.tvSignup)
         tvSignin = requireView().findViewById(R.id.tvSignin)
         tvForgot = requireView().findViewById(R.id.tvForgot)
-        button = requireView().findViewById(R.id.button)
+        button = requireView().findViewById(R.id.addButton)
         itEmail = requireView().findViewById(R.id.itEmail)
         itPassword = requireView().findViewById(R.id.itPassword)
     }

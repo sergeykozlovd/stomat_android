@@ -4,6 +4,7 @@ import com.example.stomat.model.ResponseData
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
+import retrofit2.http.Query
 
 interface ApiService {
     @POST("register")
@@ -33,10 +34,32 @@ interface ApiService {
     ): ResponseData
 
 
-    @POST("user")
+    @GET("user")
     suspend fun getUserProfile(): Any
 
     @GET("adverts")
-    suspend fun getAdverts(): ResponseData
+    suspend fun getAdverts(
+        @Query("category") category:Int? = null
+    ): ResponseData
+
+    @GET("categories")
+    suspend fun getCategories(
+        @Query("parent_id") type:Int? = null
+    ): ResponseData
+
+    @POST("add_purchase_to_cart")
+    suspend fun addPurchaseToCart(
+        @Body hashMap: HashMap<String, Any>
+    ): ResponseData
+
+    @POST("change_purchase_state")
+    suspend fun changePurchaseState(
+        @Body hashMap: HashMap<String, Any>
+    ): ResponseData
+
+    @GET("get_cart_purchases")
+    suspend fun  getCartPurchases(
+        @Query("state") type:Int = 0
+    ): ResponseData
 
 }

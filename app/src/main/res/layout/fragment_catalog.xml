@@ -6,12 +6,12 @@
     android:layout_height="match_parent"
     tools:context=".ui.catalog.CatalogFragment">
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        android:text="@string/exit"
-        android:id="@+id/btnExit"/>
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvBanners"
+        tools:listitem="@layout/item_advert"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layoutManager="androidx.recyclerview.widget.StaggeredGridLayoutManager"
+        app:spanCount="2" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

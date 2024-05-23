@@ -3,13 +3,18 @@
 
     <item
         android:id="@+id/HomeFragment"
-        android:icon="@drawable/ic_home_black_24dp"
-        android:title="@string/title_home" />
+        android:icon="@drawable/ic_home"
+        android:title="Home" />
 
     <item
-        android:id="@+id/navigation_dashboard"
-        android:icon="@drawable/ic_dashboard_black_24dp"
-        android:title="@string/title_dashboard" />
+        android:id="@+id/CatalogFragment"
+        android:icon="@drawable/ic_catalog"
+        android:title="@string/title_catalog" />
+
+    <item
+        android:id="@+id/CartFragment"
+        android:icon="@drawable/ic_cart"
+        android:title="@string/title_cart" />
 
     <item
         android:id="@+id/navigation_notifications"

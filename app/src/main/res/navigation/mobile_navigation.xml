@@ -7,15 +7,13 @@
 
     <fragment
         android:id="@+id/HomeFragment"
-        android:label="@string/title_home"
         android:name="com.example.stomat.ui.home.HomeFragment"
         tools:layout="@layout/fragment_home" />
 
     <fragment
-        android:id="@+id/navigation_dashboard"
-        android:name="com.example.stomat.ui.dashboard.DashboardFragment"
-        android:label="@string/title_dashboard"
-        tools:layout="@layout/fragment_dashboard" />
+        android:id="@+id/CatalogFragment"
+        android:name="com.example.stomat.ui.catalog.CatalogFragment"
+        tools:layout="@layout/fragment_catalog" />
 
     <fragment
         android:id="@+id/navigation_notifications"
@@ -39,5 +37,19 @@
         android:label="@string/confirm_code"
         android:name="com.example.stomat.ui.auth.CodeFragment"
         tools:layout="@layout/fragment_code"/>
+    <fragment
+        android:id="@+id/FragmentLevel2"
+        android:name="com.example.stomat.ui.category.SelectCategoryFragment"
+        tools:layout="@layout/fragment_select_category"/>
+    <fragment
+        android:label="DetailFragment"
+        android:id="@+id/DetailFragment"
+        android:name="com.example.stomat.ui.detail.DetailFragment"
+        tools:layout="@layout/fragment_detail"/>
+
+    <fragment
+        android:id="@+id/CartFragment"
+        android:name="com.example.stomat.ui.cart.CartFragment"
+        tools:layout="@layout/fragment_cart"/>
 
 </navigation>

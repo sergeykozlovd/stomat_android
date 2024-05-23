@@ -16,4 +16,8 @@ class ResponseData {
 
     @SerializedName("adverts")
     val adverts:List<Advert>? = null
+
+    @SerializedName("categories")
+    val categories:List<Category>? = null
+
 }
