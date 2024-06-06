@@ -1,21 +1,21 @@
 plugins {
-    alias(libs.plugins.androidApplication)
-    alias(libs.plugins.jetbrainsKotlinAndroid)
+    alias(libs.plugins.android.application)
+    alias(libs.plugins.kotlin.android)
     kotlin("kapt")
 }
 
 android {
-    namespace = "com.example.stomat"
+    namespace = "com.examples.stomat"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.example.stomat"
+        applicationId = "com.examples.stomat"
         minSdk = 24
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
 
-//        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
     buildTypes {
@@ -34,9 +34,9 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
-//    buildFeatures {
-//        viewBinding = true
-//    }
+    buildFeatures {
+        viewBinding = true
+    }
 }
 
 dependencies {
@@ -49,9 +49,10 @@ dependencies {
     implementation(libs.androidx.lifecycle.viewmodel.ktx)
     implementation(libs.androidx.navigation.fragment.ktx)
     implementation(libs.androidx.navigation.ui.ktx)
+    testImplementation(libs.junit)
+    androidTestImplementation(libs.androidx.junit)
+    androidTestImplementation(libs.androidx.espresso.core)
 
-//    implementation(libs.dagger)
-//    kapt(libs.dagger.compiler)
 
     implementation(libs.retrofit)
     implementation(libs.converter.json)
@@ -60,8 +61,4 @@ dependencies {
     implementation(libs.kotlinx.serialization.json)
     implementation(libs.glide)
 
-
-//    testImplementation(libs.junit)
-//    androidTestImplementation(libs.androidx.junit)
-//    androidTestImplementation(libs.androidx.espresso.core)
 }

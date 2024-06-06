@@ -7,49 +7,49 @@
 
     <fragment
         android:id="@+id/HomeFragment"
-        android:name="com.example.stomat.ui.home.HomeFragment"
+        android:name="com.examples.stomat.ui.home.HomeFragment"
         tools:layout="@layout/fragment_home" />
 
     <fragment
         android:id="@+id/CatalogFragment"
-        android:name="com.example.stomat.ui.catalog.CatalogFragment"
+        android:name="com.examples.stomat.ui.catalog.CatalogFragment"
         tools:layout="@layout/fragment_catalog" />
 
     <fragment
         android:id="@+id/navigation_notifications"
-        android:name="com.example.stomat.ui.notifications.NotificationsFragment"
+        android:name="com.examples.stomat.ui.notifications.NotificationsFragment"
         android:label="@string/title_notifications"
         tools:layout="@layout/fragment_notifications" />
     <fragment
         android:id="@+id/ProfileFragment"
-        android:name="com.example.stomat.ui.profile.ProfileFragment"
+        android:name="com.examples.stomat.ui.profile.ProfileFragment"
         android:label="@string/title_profile"
         tools:layout="@layout/fragment_profile" />
 
     <fragment
         android:id="@+id/SigninFragment"
         android:label="@string/sign_in"
-        android:name="com.example.stomat.ui.auth.SigninFragment"
+        android:name="com.examples.stomat.ui.auth.SigninFragment"
         tools:layout="@layout/fragment_signin" />
 
     <fragment
         android:id="@+id/CodeFragment"
         android:label="@string/confirm_code"
-        android:name="com.example.stomat.ui.auth.CodeFragment"
+        android:name="com.examples.stomat.ui.auth.CodeFragment"
         tools:layout="@layout/fragment_code"/>
     <fragment
         android:id="@+id/FragmentLevel2"
-        android:name="com.example.stomat.ui.category.SelectCategoryFragment"
+        android:name="com.examples.stomat.ui.category.SelectCategoryFragment"
         tools:layout="@layout/fragment_select_category"/>
     <fragment
         android:label="DetailFragment"
         android:id="@+id/DetailFragment"
-        android:name="com.example.stomat.ui.detail.DetailFragment"
+        android:name="com.examples.stomat.ui.detail.DetailFragment"
         tools:layout="@layout/fragment_detail"/>
 
     <fragment
         android:id="@+id/CartFragment"
-        android:name="com.example.stomat.ui.cart.CartFragment"
+        android:name="com.examples.stomat.ui.cart.CartFragment"
         tools:layout="@layout/fragment_cart"/>
 
 </navigation>
