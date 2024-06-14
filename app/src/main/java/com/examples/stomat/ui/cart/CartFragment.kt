@@ -7,14 +7,14 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.examples.stomat.R
-import com.examples.stomat.adapters.AdvertAdapter
+import com.examples.stomat.adapters.CartAdapter
 import com.examples.stomat.ui.detail.DetailFragment
 
 class CartFragment : Fragment(R.layout.fragment_cart) {
 
     private val viewModel: CartViewModel by viewModels()
     private lateinit var rvItems:RecyclerView
-    private lateinit var adapter:AdvertAdapter
+    private lateinit var adapter: CartAdapter
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -26,7 +26,7 @@ class CartFragment : Fragment(R.layout.fragment_cart) {
     }
 
     private fun initAdapter(){
-        adapter = AdvertAdapter{
+        adapter = CartAdapter{
             findNavController().navigate(R.id.DetailFragment, DetailFragment.getBundle(it))
         }
 

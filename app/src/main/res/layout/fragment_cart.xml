@@ -4,18 +4,25 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/title_cart"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvBanners"
-        tools:listitem="@layout/item_advert"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:listitem="@layout/item_cart"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
+        tools:itemCount="2"
+        app:layout_constraintBottom_toTopOf="@id/button"
         app:layoutManager="androidx.recyclerview.widget.StaggeredGridLayoutManager"
-        app:spanCount="2" />
+        />
+
+    <com.google.android.material.button.MaterialButton
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/buy"
+        android:layout_marginHorizontal="20dp"
+        android:id="@+id/button"
+        app:layout_constraintBottom_toBottomOf="parent"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -48,6 +48,7 @@
         tools:layout="@layout/fragment_detail"/>
 
     <fragment
+        android:label="@string/cart"
         android:id="@+id/CartFragment"
         android:name="com.examples.stomat.ui.cart.CartFragment"
         tools:layout="@layout/fragment_cart"/>

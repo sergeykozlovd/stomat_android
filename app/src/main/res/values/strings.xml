@@ -30,4 +30,7 @@
     <string name="search">Search</string>
     <string name="add_to_cart">Add to cart</string>
     <string name="delete_from_cart">Delete from cart</string>
+    <string name="cart">Cart</string>
+    <string name="add_item_to_cart">add item to cart</string>
+    <string name="buy">Buy</string>
 </resources>
