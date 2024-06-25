@@ -33,4 +33,9 @@
     <string name="cart">Cart</string>
     <string name="add_item_to_cart">add item to cart</string>
     <string name="buy">Buy</string>
+    <string name="name">Name*</string>
+    <string name="second_name">Second Name*</string>
+    <string name="phone">Phone*</string>
+    <string name="city">City*</string>
+    <string name="save">Save</string>
 </resources>

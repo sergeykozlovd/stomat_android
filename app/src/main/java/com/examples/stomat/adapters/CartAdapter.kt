@@ -21,7 +21,7 @@ class CartAdapter(val callback:(advert:Advert) -> Unit):RecyclerView.Adapter<Car
         val image = view.findViewById<ImageView>(R.id.image)
         fun bind(advert:Advert){
             title.text = advert.title
-            advert.c
+            //advert.c
             val imagePath = "${Const.baseImageUrl}${advert.image}"
             Glide.with(itemView.context)
                 .load( imagePath )

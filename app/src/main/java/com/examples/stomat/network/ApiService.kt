@@ -1,6 +1,7 @@
 package com.examples.stomat.network
 
 import com.examples.stomat.model.ResponseData
+import com.examples.stomat.model.User
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
@@ -35,7 +36,8 @@ interface ApiService {
 
 
     @GET("user")
-    suspend fun getUserProfile(): Any
+    suspend fun getUserProfile(
+    ): ResponseData
 
     @GET("adverts")
     suspend fun getAdverts(
@@ -61,5 +63,10 @@ interface ApiService {
     suspend fun  getCartPurchases(
         @Query("state") type:Int = 0
     ): ResponseData
+
+    @POST("change_user")
+    suspend fun changeUser(
+        @Body hashMap: HashMap<String, Any>
+    ): Any
 
 }
