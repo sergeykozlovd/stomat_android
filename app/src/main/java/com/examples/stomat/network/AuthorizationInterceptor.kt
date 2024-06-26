@@ -6,7 +6,9 @@ import okhttp3.Interceptor
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.Protocol
 import okhttp3.Response
+import okhttp3.ResponseBody
 import okhttp3.ResponseBody.Companion.toResponseBody
+import okhttp3.internal.http.RealResponseBody
 import java.lang.Exception
 
 class AuthorizationInterceptor : Interceptor {
@@ -15,6 +17,7 @@ class AuthorizationInterceptor : Interceptor {
 
         var response: Response? = null
         var bodyString: String? = null
+        var response2: Response? = null
 
         MainActivity.messageLifeData.postValue(null)
         val requestBuilder = chain.request().newBuilder()
@@ -30,23 +33,33 @@ class AuthorizationInterceptor : Interceptor {
 
             bodyString = response.body?.string()
 
+
+
         } catch (e: Exception) {
             e.printStackTrace()
-            bodyString = "{\"message\":\"NETWORK ERROR\",\"success\":false}"
+           // bodyString = "{\"message\":\"NETWORK ERROR\",\"success\":false}"
         }
 
+        response = Response.Builder().apply {
+            code(response?.code ?: 500)
+            message(response?.message ?: "Server Offline")
+//                body(response.body)
+            body((bodyString ?: "").toResponseBody("text/html".toMediaType()))
+            request(response?.request ?: chain.request())
+            protocol(Protocol.HTTP_1_0)
+        }.build()
 //        if (response?.code != 200) {
-        MainActivity.messageLifeData.postValue(bodyString)
+        MainActivity.messageLifeData.postValue(response)
 //
 //        }
 
 
         return Response.Builder()
             .apply {
-                code(response?.code ?: 444)
-                message(response?.message ?: "error")
+                code(response.code )
+                message(response.message)
                 body((bodyString ?: "").toResponseBody("text/html".toMediaType()))
-                request(response?.request ?: chain.request())
+                request(response.request )
                 protocol(Protocol.HTTP_1_0)
             }.build()
     }

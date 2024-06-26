@@ -13,21 +13,22 @@ import androidx.navigation.NavDestination
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import okhttp3.Response
+import okhttp3.ResponseBody
 import org.json.JSONObject
 
 class MainActivity : AppCompatActivity() {
 
     companion object {
-        val messageLifeData = MutableLiveData<String>()
+        val messageLifeData = MutableLiveData<Response?>()
     }
 
-    var categoryId:Int? = null
+    var categoryId: Int? = null
     lateinit var navView: BottomNavigationView
     lateinit var navController: NavController
     lateinit var title: TextView
     lateinit var progress: LinearLayout
     lateinit var toolbar: Toolbar
-
 
 
     private val TAG = "MainActivity"
@@ -108,27 +109,34 @@ class MainActivity : AppCompatActivity() {
                 progress.visibility = View.VISIBLE
             } else {
                 progress.visibility = View.GONE
-                try {
-                    val obj = JSONObject(it)
-                    var msg = ""
+                val code = it.code
+                val message = it.message
 
-                    if (obj.has(Const.MESSAGE)) {
-                        msg = obj.getString(Const.MESSAGE)
-                    }
+                if (code != 500 ){
+                    try {
+                        val str = it.body?.string()
+                        val obj = JSONObject(str)
+                        var msg = ""
 
-//"select * from "adverts" inner join "purchases" on "adverts"."id" = "purchases"."advert_id" where "purchases"."user_id" = ? and "purchases"."state" = ?"
-                    if (msg.isNotEmpty()) {
-                        AlertUtils.alert(this, msg)
+                        if (obj.has(Const.MESSAGE)) {
+                            msg = obj.getString(Const.MESSAGE)
+                        }
+
+                        if (msg.isNotEmpty()) {
+                            AlertUtils.alert(this, msg)
+                        }
+                    } catch (e: Exception) {
+                        e.printStackTrace()
                     }
-                } catch (e: Exception) {
-                    e.printStackTrace()
+                } else {
+                    AlertUtils.alert(this, "CODE:n$code  $message ${it.request.url}")
                 }
             }
         }
     }
 
     fun setTitle(text: String) {
-        if (text.isEmpty()){
+        if (text.isEmpty()) {
             toolbar.visibility = View.GONE
         } else {
             title.text = text
@@ -136,7 +144,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    fun navToCatalog(categoryId:Int){
+    fun navToCatalog(categoryId: Int) {
         this.categoryId = categoryId
         navController.navigateUp()
         navView.selectedItemId = R.id.CatalogFragment

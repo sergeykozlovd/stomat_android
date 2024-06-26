@@ -96,7 +96,8 @@
                     android:id="@+id/itPhone"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="textShortMessage" />
+
+                    android:inputType="number" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -119,7 +120,8 @@
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/tvForgot"
-            android:layout_width="match_parent"
+            android:layout_gravity="end"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/elements_margin"
             android:layout_marginEnd="@dimen/elements_margin"

@@ -17,25 +17,38 @@ class SigninViewModel(application: Application) : AndroidViewModel(application) 
     val apiService = (application as App).apiService
     val isDataValid = MutableLiveData(false)
     val isSignin = MutableLiveData(false)
-    val isSignup = MutableLiveData(false)
-    val isRecovery = MutableLiveData(false)
     val codeRecoverySent = MutableLiveData(false)
     val codeRegisterSent = MutableLiveData(false)
     val email = MutableLiveData("")
     val password = MutableLiveData("")
+    val name = MutableLiveData("")
+    val surname = MutableLiveData("")
+    val phone = MutableLiveData("")
+    val city = MutableLiveData("")
 
 
     init {
         email.observeForever { checkDataValid() }
         password.observeForever { checkDataValid() }
+        name.observeForever { checkDataValid() }
+        surname.observeForever { checkDataValid() }
+        phone.observeForever { checkDataValid() }
+        city.observeForever { checkDataValid() }
     }
 
     private fun checkDataValid() {
         var result = true
         if (password.value?.isEmpty() == true) result = false
+        if (isSignin.value == false){
+            if (name.value?.isEmpty() == true) result = false
+            if (surname.value?.isEmpty() == true) result = false
+            if (phone.value?.isEmpty() == true) result = false
+            if (city.value?.isEmpty() == true) result = false
+        }
         if (!Patterns.EMAIL_ADDRESS.matcher(email.value?.trim()).matches()) {
             result = false
         }
+
         isDataValid.value = result
     }
 
@@ -63,6 +76,10 @@ class SigninViewModel(application: Application) : AndroidViewModel(application) 
         val hashMap = hashMapOf<String, String>()
         hashMap["email"] = email.value ?: ""
         hashMap["password"] = password.value ?: ""
+        hashMap["name"] = name.value ?: ""
+        hashMap["surname"] = surname.value ?: ""
+        hashMap["phone"] = phone.value ?: ""
+        hashMap["city"] = city.value ?: ""
 
         flow {
             try {

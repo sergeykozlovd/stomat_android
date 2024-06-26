@@ -3,6 +3,7 @@ package com.examples.stomat.ui.auth
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
+import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
@@ -23,6 +24,11 @@ class SigninFragment : Fragment(R.layout.fragment_signin) {
     private lateinit var button: Button
     private lateinit var itEmail: TextInputEditText
     private lateinit var itPassword: TextInputEditText
+    private lateinit var itName: TextInputEditText
+    private lateinit var itSurname: TextInputEditText
+    private lateinit var itPhone: TextInputEditText
+    private lateinit var itCity: TextInputEditText
+    private lateinit var registerBlock: LinearLayout
 
 //    @Inject
 //    lateinit var viewModelFactory: ViewModelProvider.Factory
@@ -47,39 +53,50 @@ class SigninFragment : Fragment(R.layout.fragment_signin) {
         button = requireView().findViewById(R.id.addButton)
         itEmail = requireView().findViewById(R.id.itEmail)
         itPassword = requireView().findViewById(R.id.itPassword)
+        registerBlock = requireView().findViewById(R.id.registerBlock)
+        itName = requireView().findViewById(R.id.itName)
+        itSurname = requireView().findViewById(R.id.itSurname)
+        itPhone = requireView().findViewById(R.id.itPhone)
+        itCity = requireView().findViewById(R.id.itCity)
+
     }
 
-    private fun updateViews(s: Auth) {
-        authMode = s
+    private fun updateViews(authMode_: Auth) {
+        authMode = authMode_
+        viewModel.isSignin.value = authMode_ == Auth.SIGNIN
         itEmail.setText("sergeykozlov.d@ya.ru")
         itPassword.setText("000000")
+        itName.setText("Sergey")
+        itSurname.setText("Kozlov")
+        itPhone.setText("77472496278")
+        itCity.setText("Schuchinsk")
 
         var title = ""
         var buttonText = ""
-        when (s) {
+        when (authMode_) {
             Auth.SIGNIN -> {
                 title = getString(R.string.sign_in)
                 buttonText = getString(R.string.enter)
-                // tvForgot.visibility = View.VISIBLE
                 tvSignup.visibility = View.VISIBLE
                 tvSignin.visibility = View.GONE
+                registerBlock.visibility = View.GONE
 
             }
 
             Auth.RECOVERY -> {
                 title = getString(R.string.password_recovery)
                 buttonText = getString(R.string.recovery)
-                //tvForgot.visibility = View.GONE
                 tvSignup.visibility = View.VISIBLE
                 tvSignin.visibility = View.GONE
+                registerBlock.visibility = View.GONE
             }
 
             Auth.SIGNUP -> {
                 title = getString(R.string.register)
                 buttonText = getString(R.string.register)
-                //  tvForgot.visibility = View.GONE
                 tvSignup.visibility = View.GONE
                 tvSignin.visibility = View.VISIBLE
+                registerBlock.visibility = View.VISIBLE
             }
         }
 
@@ -116,12 +133,12 @@ class SigninFragment : Fragment(R.layout.fragment_signin) {
             }
         }
 
-        viewModel.isSignin.observe(viewLifecycleOwner) {
-            if (it) {
-                findNavController().navigateUp()
-                findNavController().navigate(R.id.ProfileFragment)
-            }
-        }
+//        viewModel.isSignin.observe(viewLifecycleOwner) {
+//            if (it) {
+//                findNavController().navigateUp()
+//                findNavController().navigate(R.id.ProfileFragment)
+//            }
+//        }
     }
 
     private fun initListeners() {
@@ -147,6 +164,18 @@ class SigninFragment : Fragment(R.layout.fragment_signin) {
 
         itPassword.addTextChangedListener {
             viewModel.password.value = it.toString()
+        }
+        itName.addTextChangedListener {
+            viewModel.name.value = it.toString()
+        }
+        itSurname.addTextChangedListener {
+            viewModel.surname.value = it.toString()
+        }
+        itPhone.addTextChangedListener {
+            viewModel.phone.value = it.toString()
+        }
+        itCity.addTextChangedListener {
+            viewModel.city.value = it.toString()
         }
 
         tvForgot.setOnClickListener {
